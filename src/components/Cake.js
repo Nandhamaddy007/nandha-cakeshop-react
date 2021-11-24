@@ -1,11 +1,11 @@
 import React from 'react';
 export default function Cake(props) {
   return (
-    <div className="col-md-4">
-      <div className="card" style={{ width: '18rem' }}>
+    <div className="col-md">
+      <div className="card" style={{ width: '10rem' }}>
         <img
           className="card-img-top"
-          style={{ height: '13rem' }}
+          style={{ height: '6rem' }}
           src={props.cake.src}
           alt="Card image cap"
         />
