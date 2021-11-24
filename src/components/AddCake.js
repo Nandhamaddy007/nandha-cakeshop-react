@@ -19,17 +19,17 @@ export default function AddCake(props) {
   };
   return (
     <div className="container">
-      <div class="form-group">
+      <div className="form-group">
         <label>Enter Cake name:</label>
         <input class="form-control" onChange={getCakeName} type="text" />
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <label>Add Cake Image:</label>
         <input class="form-control" onChange={getCakeImage} type="text" />
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <label>Enter Price:</label>
-        <input class="form-control" onChange={getCakeprice} type="text" />
+        <input className="form-control" onChange={getCakeprice} type="text" />
       </div>
       <button onClick={pushDetails} class="btn btn-primary">
         Add Cake
