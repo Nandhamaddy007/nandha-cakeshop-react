@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import React from 'react';
 export default function Counter(){
     const [counter,setCounter]=useState(0)
     useEffect(()=>{},[])

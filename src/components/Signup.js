@@ -1,3 +1,4 @@
+import React from 'react';
 export default function Signup() {
   var email, name, password;
   let getEmail = (event) => {

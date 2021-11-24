@@ -5,11 +5,12 @@ import Signup from './Signup';
 import React from 'react';
 import { Component } from 'react';
 import Login from './Login';
+import { cake1, cake2, cake3 } from './images';
 class Home extends Component {
   cakeDetails = [
-    { name: 'Rainbow cake', price: '300Rs', src: 'cake1.jpg' },
-    { name: 'Chocolate cake', price: '400Rs', src: 'cake2.jpg' },
-    { name: 'Heartin Cake', price: '500Rs', src: 'cake3.jpg' },
+    { name: 'Rainbow cake', price: '300Rs', src: cake1 },
+    { name: 'Chocolate cake', price: '400Rs', src: cake2 },
+    { name: 'Heartin Cake', price: '500Rs', src: cake3 },
   ];
   constructor() {
     super();
