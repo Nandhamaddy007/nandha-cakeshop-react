@@ -1,12 +1,12 @@
 import { Component } from 'react'
 import React from 'react';
-class Navbar extends Component{
-  render(){
+export default function Navbar(props){
+ 
     return(
       <div>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
 <div class="container-fluid">
-<a class="navbar-brand" href="#">{this.props.title}</a>
+<a class="navbar-brand" href="#">{props.title}</a>
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>
@@ -30,11 +30,11 @@ class Navbar extends Component{
     </ul>
   </li>
   <li class="nav-item">
-   <h6>Your Wallet Balance is : {this.props.money}</h6>
+   <h6>Your Wallet Balance is : {props.money}</h6>
   </li>
 </ul>
 <form class="d-flex">
- {this.props.isLoggedIn?<button class="btn btn-outline-danger" onClick={this.props.setLogout} >Logout</button>:
+ {props.isLoggedIn?<button class="btn btn-outline-danger" onClick={props.setLogout} >Logout</button>:
  <div>
  <button class="btn btn-outline-primary" >Login</button> 
  &nbsp;&nbsp;
@@ -48,6 +48,4 @@ class Navbar extends Component{
   </div>
     )
   }
-}
 
-export default Navbar

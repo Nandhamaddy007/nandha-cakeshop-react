@@ -1,8 +1,12 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 export default function Cart(props) {
-  const [addedCakes, setAddedCakes] = useState({
-    
-  });
+  const [addedCakes, setAddedCakes] = useState(props.cakeList);
+  const [total, setTotal] = useState(0);
+  var amt = 0;
+  useEffect(() => {
+    console.log(addedCakes);
+  }, [addedCakes]);
   return (
     <div className="container">
       <table className="table table-borderless table-hover">
@@ -14,19 +18,40 @@ export default function Cart(props) {
           </tr>
         </thead>
         <tbody>
-          {props.cakeDetails.map((cake, index) => {
-            return (
-              <tr>
-                <td>
-                  <img src={cake.src} />
-                </td>
-                <td></td>
-                <td>100</td>
-              </tr>
-            );
+          {addedCakes.map((cake, index) => {
+            amt = amt + cake.price;
+            return cartItem(cake, index);
           })}
+          <tr>
+            <td colSpan={2}>Total</td>
+            <td>{amt}</td>
+          </tr>
         </tbody>
       </table>
     </div>
   );
+  function cartItem(props, index) {
+    var cake = props;
+    function removeCake() {
+      console.log('remove', index);
+      var temp = addedCakes;
+      temp.splice(index, 1);
+      setAddedCakes([...temp]);
+    }
+    return (
+      <tr>
+        <td>
+          <img src={cake.src} style={{ height: '100px', width: '100px' }} />
+          <h5>{cake.name}</h5>
+        </td>
+        <td>1 X</td>
+        <td>{cake.price}</td>
+        <td>
+          <button className="btn btn-danger" onClick={removeCake}>
+            Remove Cake
+          </button>
+        </td>
+      </tr>
+    );
+  }
 }
