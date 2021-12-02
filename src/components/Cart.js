@@ -1,14 +1,24 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 export default function Cart(props) {
-  const [addedCakes, setAddedCakes] = useState(props.cakeList);
+  const [addedCakes, setAddedCakes] = useState();
   const [total, setTotal] = useState(0);
   var amt = 0;
-  useEffect(() => {
-    console.log(addedCakes);
-  }, [addedCakes]);
+
+  useEffect(() => {});
   return (
     <div className="container">
+      <h3>Cart</h3>
+      <Link to="/checkout">
+        {' '}
+        <button
+          className="btn btn-outline-secondary"
+          style={{ float: 'right' }}
+        >
+          Checkout
+        </button>{' '}
+      </Link>
       <table className="table table-borderless table-hover">
         <thead class="table-dark">
           <tr>
@@ -18,10 +28,11 @@ export default function Cart(props) {
           </tr>
         </thead>
         <tbody>
-          {addedCakes.map((cake, index) => {
+          {/* {addedCakes.map((cake, index) => {
             amt = amt + cake.price;
             return cartItem(cake, index);
-          })}
+          })} */}
+
           <tr>
             <td colSpan={2}>Total</td>
             <td>{amt}</td>

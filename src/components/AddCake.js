@@ -1,35 +1,102 @@
 import React from 'react';
 import { useState } from 'react';
 export default function AddCake(props) {
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [img, setImg] = useState('');
-  var getCakeName = (e) => {
-    setName(e.target.value);
+  const [imgUrl, setImgUrl] = useState({
+    url: String,
+    file: File,
+  });
+  const [cake, setCake] = useState({
+    name: String,
+    price: String,
+    image: String,
+    description: String,
+    type: String,
+    ingredients: [],
+    eggless: Boolean,
+    flavour: String,
+  });
+  var showPreview = (e) => {
+    var reader = new FileReader();
+    setImgUrl({
+      file: e.target.files[0],
+    });
+    var url = reader.readAsDataURL(e.target.files[0]);
+    reader.onloadend = (data) => {
+      setImgUrl({
+        url: reader.result,
+      });
+    };
   };
-  var getCakeImage = (e) => {
-    setImg(e.target.value);
+  var ClearImage = () => {
+    setImgUrl({
+      url: undefined,
+      file: null,
+    });
   };
-  var getCakeprice = (e) => {
-    setPrice(e.target.value);
-  };
-  var pushDetails = () => {
-    console.log(name, price, img);
-    props.addCake({ name: name, price: price, src: img });
-  };
+  var pushDetails = () => {};
+  var getValue = () => {};
   return (
     <div className="container">
       <div className="form-group">
-        <label>Enter Cake name:</label>
-        <input class="form-control" onChange={getCakeName} type="text" />
+        <img
+          src={imgUrl.url}
+          height="300"
+          width="500"
+          className="float right"
+          style={{ border: '5px solid black', float: 'right' }}
+          alt="Your image preview"
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={showPreview}
+          className="form-control"
+        />
+        <button className="btn btn-danger" onClick={ClearImage}>
+          Clear
+        </button>
       </div>
       <div className="form-group">
-        <label>Add Cake Image:</label>
-        <input class="form-control" onChange={getCakeImage} type="text" />
+        <label>Enter Cake name:</label>
+        <input class="form-control" onChange={getValue} type="text" />
       </div>
       <div className="form-group">
         <label>Enter Price:</label>
-        <input className="form-control" onChange={getCakeprice} type="text" />
+        <input className="form-control" onChange={getValue} type="text" />
+      </div>
+      <div className="form-group">
+        <label>Type:</label>
+        <input className="form-control" onChange={getValue} type="text" />
+      </div>
+      <div className="form-group">
+        <label>Flavour:</label>
+        <input className="form-control" onChange={getValue} type="text" />
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="flexRadioDefault"
+          id="flexRadioDefault1"
+        />
+        <label class="form-check-label bg-success" for="flexRadioDefault1">
+          Eggless
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="flexRadioDefault"
+          id="flexRadioDefault2"
+        />
+        <label class="form-check-label bg-warning" for="flexRadioDefault2">
+          Egg
+        </label>
+      </div>
+      <div className="form-group">
+        <label>Description:</label>
+        <textarea className="form-control" onChange={getValue}></textarea>
       </div>
       <button onClick={pushDetails} class="btn btn-primary">
         Add Cake

@@ -1,19 +1,28 @@
 import React from 'react';
+import axios from 'axios';
 export default function Signup() {
-  var email, name, password;
+  var user = {};
   let getEmail = (event) => {
-    email = event.target.value;
+    user.email = event.target.value;
   };
   let getName = (event) => {
-    name = event.target.value;
+    user.name = event.target.value;
   };
   let getPassword = (event) => {
-    password = event.target.value;
+    user.password = event.target.value;
   };
   function signUp() {
-    console.log('Name: ', name);
-    console.log('Email: ', email);
-    console.log('Password: ', password);
+    // console.log('Name: ', name);
+    // console.log('Email: ', email);
+    // console.log('Password: ', password);
+    axios.post('https://apifromashu.herokuapp.com/api/register', user).then(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
   return (
     <div className="container" style={{ width: '50%', margin: 'auto' }}>
