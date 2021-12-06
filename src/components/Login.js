@@ -90,7 +90,9 @@ class Login extends Component {
     );
   }
 }
+
 export default function () {
   const navigate = useNavigate();
+
   return <Login navigate={navigate} />;
 }

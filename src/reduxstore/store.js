@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from 'redux';
 import { AuthReducer, CartReducer } from './reducers';
 
-//var reducers = combineReducers({ AuthReducer, CartReducer });
-var store = createStore(AuthReducer);
+var reducers = combineReducers({ AuthReducer, CartReducer });
+var store = createStore(reducers);
 
 // store.dispatch({
 //   type: 'LOGIN',
@@ -15,6 +15,6 @@ var store = createStore(AuthReducer);
 //     weight: '1kg',
 //   },
 // });
-console.log(store.getState());
+// console.log(store.getState());
 
 export default store;

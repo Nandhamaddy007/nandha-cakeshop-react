@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 import React from 'react';
-export default function Navbar(props) {
+function Navbar(props) {
   const [searchText, setSearchText] = useState();
   const navigate = useNavigate();
   function getSearchText(e) {
@@ -105,3 +106,11 @@ export default function Navbar(props) {
     </div>
   );
 }
+function mapStateToProps(state, props) {
+  console.log(state, props);
+  return {
+    isloggedin: state['AuthReducer']['isloggedin'],
+  };
+}
+Navbar = connect(mapStateToProps)(Navbar);
+export default Navbar;

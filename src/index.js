@@ -5,11 +5,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
 import Routing from './components/Routing';
 import { Provider } from 'react-redux';
-import './reduxstore/store';
-
+import { store } from './reduxstore/store';
+console.log(store);
 ReactDOM.render(
-  // <Provider store={Appstore}>
-  <Routing />,
-  //</Provider>
+  <Provider store={store}>
+    <Routing />
+  </Provider>,
   document.getElementById('root')
 );
