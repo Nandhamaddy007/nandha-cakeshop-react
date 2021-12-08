@@ -2,8 +2,10 @@ import Cake from './Cake';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { getCakes } from '../reduxstore/thunks';
 import Loader from 'react-loader-spinner';
-export default function CakeList(props) {
+function CakeList(props) {
   const [editable, setEditable] = useState(false);
   const [cakeList, setCakeList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -11,20 +13,8 @@ export default function CakeList(props) {
     setEditable(!editable);
   };
   useEffect(() => {
-    setLoading(true);
-    axios({
-      url: 'https://apifromashu.herokuapp.com/api/allcakes',
-      method: 'GET',
-    })
-      .then((res) => {
-        setLoading(false);
-        console.log(res);
-        setCakeList(res.data.data);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-      });
+    // setLoading(true);
+    props.dispatch(getCakes());
   }, []);
 
   return (
@@ -43,7 +33,7 @@ export default function CakeList(props) {
           Edit
         </button> */}
         <div className="row">
-          {cakeList.map((cake, index) => {
+          {props.cakes?.map((cake, index) => {
             cake.index = index;
             return (
               <Cake
@@ -59,3 +49,11 @@ export default function CakeList(props) {
     </div>
   );
 }
+function mapStateToProps(state, props) {
+  return {
+    cakes: state['InitCakes']['cakes'],
+  };
+}
+
+CakeList = connect(mapStateToProps)(CakeList);
+export default CakeList;

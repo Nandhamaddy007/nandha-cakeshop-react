@@ -12,14 +12,18 @@ function Navbar(props) {
     console.log(`search?q=${searchText}`);
     navigate(`search?q=${searchText}`);
   };
-
   var logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('name');
+    props.dispatch({
+      type: 'LOGIN',
+      payload: false,
+    });
+
     setIsLoggedIn(false);
   };
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(props.isloggedin);
   useEffect(() => {
     setIsLoggedIn(localStorage.token ? true : false);
   });
@@ -73,7 +77,7 @@ function Navbar(props) {
               {localStorage.name ? `Welcome ${localStorage.name}` : null}
             </h5>
             &nbsp;&nbsp;
-            {isLoggedIn ? (
+            {props.isloggedin ? (
               <div>
                 <button class="btn btn-outline-danger" onClick={logOut}>
                   Logout
@@ -98,7 +102,7 @@ function Navbar(props) {
           </div>
         </div>
       </nav>
-      {isLoggedIn ? (
+      {props.isloggedin ? (
         <Link to="addcake">
           <button className="btn btn-primary">Got a new recipe?</button>
         </Link>
@@ -109,7 +113,7 @@ function Navbar(props) {
 function mapStateToProps(state, props) {
   console.log(state, props);
   return {
-    isloggedin: state['AuthReducer']['isloggedin'],
+    isloggedin: state['AuthReducer']['isLoggedin'],
   };
 }
 Navbar = connect(mapStateToProps)(Navbar);

@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import React from 'react';
+import { connect } from 'react-redux';
+import { loginThunk } from '../reduxstore/thunks';
 import {
   Link,
   BrowserRouter,
@@ -31,27 +33,31 @@ class Login extends Component {
   login = () => {
     // this.props.loading(true);
     // console.log(this.props.loading);
+    console.log(this.props);
     if (
       this.user.email === 'nandhamaddy007@gmail.com' &&
       this.user.password === 'Cake01'
     ) {
-      axios.post('https://apifromashu.herokuapp.com/api/login', this.user).then(
-        (res) => {
-          console.log(res);
-          if (res.data.token) {
-            localStorage.token = res.data.token;
-            localStorage.role = res.data.role;
-            localStorage.name = res.data.name;
-            // this.props.loginDone(true);
-            // this.props.loading(false);
-            this.props.navigate('/');
-          }
-        },
-        (err) => {
-          console.log(err);
-          alert('Invalid Credentials');
-        }
-      );
+      this.props.props.dispatch(loginThunk(this.user));
+      // axios.post('https://apifromashu.herokuapp.com/api/login', this.user).then(
+      //   (res) => {
+      //     console.log(res);
+      //     if (res.data.token) {
+      //       localStorage.token = res.data.token;
+      //       localStorage.role = res.data.role;
+      //       localStorage.name = res.data.name;
+      //       this.props.reducer.dispatch({
+      //         type: 'LOGIN',
+      //         payload: true,
+      //       });
+      //       this.props.navigate('/');
+      //     }
+      //   },
+      //   (err) => {
+      //     console.log(err);
+      //     alert('Invalid Credentials');
+      //   }
+      // );
     }
   };
   render() {
@@ -90,9 +96,15 @@ class Login extends Component {
     );
   }
 }
+function mapStateToProps(state, props) {
+  console.log('map', state, props);
+  return state;
+}
 
-export default function () {
+function loginComp(props) {
   const navigate = useNavigate();
 
-  return <Login navigate={navigate} />;
+  return <Login navigate={navigate} props={props} />;
 }
+loginComp = connect(mapStateToProps)(loginComp);
+export default loginComp;
