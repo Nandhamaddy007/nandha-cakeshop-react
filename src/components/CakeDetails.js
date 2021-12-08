@@ -61,7 +61,7 @@ export default function CakeDetails(props) {
   }
 
   return (
-    <div className="container bg-light border rounded-3">
+    <div className="container bg-light border rounded-3 mt-5">
       <h6>Cake id is {cakeid}</h6>
       <div className="row">
         <img src={cakeDetails.image} className="col-md-4 rounded m-4" />
