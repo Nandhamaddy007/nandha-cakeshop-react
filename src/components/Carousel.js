@@ -9,13 +9,28 @@ export default function Carousel() {
     >
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src={cake1} alt="First slide" />
+          <img
+            class="d-block w-100"
+            src={cake2}
+            style={{ height: '300px' }}
+            alt="First slide"
+          />
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src={cake2} alt="Second slide" />
+          <img
+            class="d-block w-100"
+            src={cake2}
+            style={{ height: '300px' }}
+            alt="Second slide"
+          />
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src={cake3} alt="Third slide" />
+          <img
+            class="d-block w-100"
+            src={cake3}
+            style={{ height: '300px' }}
+            alt="Third slide"
+          />
         </div>
       </div>
     </div>

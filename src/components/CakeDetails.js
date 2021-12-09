@@ -1,14 +1,15 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
-export default function CakeDetails(props) {
+function CakeDetails(props) {
   var params = useParams();
   var cakeid = params.cakeID;
   const [cakeDetails, setCakeDetails] = useState({});
   var navigate = useNavigate();
-  var AddItem = () => {
-    if (localStorage.token) {
+  function AddItem() {
+    if (props.isLoggedin) {
       var reqObj = {
         cakeid: cakeDetails.cakeid,
         name: cakeDetails.name,
@@ -39,8 +40,10 @@ export default function CakeDetails(props) {
             console.log(err);
           }
         );
+    } else {
+      props.toast('please login and try again', 'error');
     }
-  };
+  }
   useEffect(() => {
     axios
       .get('https://apifromashu.herokuapp.com/api/cake/' + cakeid)
@@ -116,3 +119,10 @@ export default function CakeDetails(props) {
     </div>
   );
 }
+
+CakeDetails = connect(function (state, props) {
+  return {
+    isLoggedin: state['AuthReducer']['isLoggedin'],
+  };
+})(CakeDetails);
+export default CakeDetails;
