@@ -20,7 +20,7 @@ function Navbar(props) {
       type: 'LOGIN',
       payload: false,
     });
-
+    navigate('/');
     setIsLoggedIn(false);
   };
   const [isLoggedIn, setIsLoggedIn] = useState(props.isloggedin);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import '../style.css';
@@ -8,33 +8,18 @@ function Cart(props) {
   const [addedCakes, setAddedCakes] = useState([]);
   const [total, setTotal] = useState(0);
   var amt = 0;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // axios
-    //   .post(
-    //     'https://apifromashu.herokuapp.com/api/cakecart',
-    //     {},
-    //     {
-    //       headers: { authToken: localStorage.token },
-    //     }
-    //   )
-    //   .then(
-    //     (res) => {
-    //       console.log(res);
-    //       props.dispatch({
-    //         type: 'FETCH_CART_START',
-    //         payload: res.data.data,
-    //       });
-    //       setAddedCakes(props['cartitems']);
-    //     },
-    //     (err) => {
-    //       console.log(err);
-    //     }
-    //   );
+    if (!props.isLoggedin) {
+      console.log('hello');
+      alert('Please login to continue');
+      navigate('/login');
+    }
+    console.log(props);
     props.dispatch({
       type: 'GET_CART',
     });
-    console.log(props);
   }, []);
   return (
     <div className="container">
@@ -147,6 +132,7 @@ function mapStateToProps(state, props) {
   console.log(state);
   return {
     cartitems: state['CartReducer']['cartitems'],
+    isLoggedin: state['AuthReducer']['isLoggedin'],
   };
 }
 Cart = connect(mapStateToProps)(Cart);

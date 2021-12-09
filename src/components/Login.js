@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, useEffect } from 'react';
 import React from 'react';
 import { connect } from 'react-redux';
 import { loginThunk } from '../reduxstore/thunks';
@@ -98,12 +98,18 @@ class Login extends Component {
 }
 function mapStateToProps(state, props) {
   console.log('map', state, props);
-  return state;
+  return {
+    isloggedin: state['AuthReducer']['isLoggedin'],
+  };
 }
 
 function loginComp(props) {
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (props.isloggedin) {
+      navigate('/');
+    }
+  });
   return <Login navigate={navigate} props={props} />;
 }
 loginComp = connect(mapStateToProps)(loginComp);
