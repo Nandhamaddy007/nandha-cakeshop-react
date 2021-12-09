@@ -58,6 +58,9 @@ function Navbar(props) {
                 <h6>Your Wallet Balance is : {props.money}</h6>
               </li> */}
             </ul>
+            <h5 className="m-3">
+              {localStorage.name ? `Welcome ${localStorage.name}` : null}
+            </h5>
             <input
               className="form-control"
               type="search"
@@ -73,9 +76,6 @@ function Navbar(props) {
             >
               Search
             </button>
-            <h5 className="m-3">
-              {localStorage.name ? `Welcome ${localStorage.name}` : null}
-            </h5>
             &nbsp;&nbsp;
             {props.isloggedin ? (
               <div>
@@ -85,7 +85,15 @@ function Navbar(props) {
                 &nbsp;&nbsp;
                 <Link to="cart">
                   {' '}
-                  <button class="btn btn-warning">Cart</button>
+                  <button class="btn btn-warning">
+                    Cart{' '}
+                    <span
+                      class="badge badge-pill badge-danger"
+                      style={{ backgroundColor: 'red' }}
+                    >
+                      {props.cartcount}
+                    </span>
+                  </button>
                 </Link>
               </div>
             ) : (
@@ -114,6 +122,7 @@ function mapStateToProps(state, props) {
   console.log(state, props);
   return {
     isloggedin: state['AuthReducer']['isLoggedin'],
+    cartcount: state['CartReducer']['cartitems'].length,
   };
 }
 Navbar = connect(mapStateToProps)(Navbar);
