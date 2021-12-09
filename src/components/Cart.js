@@ -61,11 +61,25 @@ function Cart(props) {
 
   function CartItem(cakes) {
     var cake = cakes.cake;
+    function removeOneCake() {
+      axios
+        .post(
+          'https://apifromashu.herokuapp.com/api/removeonecakefromcart',
+          { cakeid: cake.cakeid },
+          {
+            headers: { authToken: localStorage.token },
+          }
+        )
+        .then(
+          (res) => {
+            console.log(res);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+    }
     function removeCake() {
-      // console.log('remove', index);
-      // var temp = addedCakes;
-      // temp.splice(index, 1);
-      // setAddedCakes([...temp]);
       axios
         .post(
           'https://apifromashu.herokuapp.com/api/removecakefromcart',
@@ -88,7 +102,24 @@ function Cart(props) {
           }
         );
     }
-
+    function addOneCake() {
+      axios
+        .post(
+          'https://apifromashu.herokuapp.com/api/addonecaketocart',
+          { cakeid: cake.cakeid },
+          {
+            headers: { authToken: localStorage.token },
+          }
+        )
+        .then(
+          (res) => {
+            console.log(res);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+    }
     return (
       <tr>
         <td>
@@ -96,12 +127,13 @@ function Cart(props) {
           <h5>{cake.name}</h5>
         </td>
         <td>
-          <button
-            style={{ width: '30px', height: '30px', padding: '0px' }}
-            className="form-control inline"
+          <span
+            onClick={addOneCake}
+            style={{ position: 'relative', left: '12px' }}
+            className=" inline"
           >
             <i class="arrow up"></i>
-          </button>
+          </span>
           &nbsp;&nbsp;
           <input
             type="text"
@@ -110,12 +142,13 @@ function Cart(props) {
             style={{ width: '40px', height: '20px', padding: '0px' }}
           />
           &nbsp;&nbsp;
-          <button
-            className="form-control inline"
-            style={{ width: '30px', height: '30px', padding: '0px' }}
+          <span
+            className="inline"
+            onClick={removeOneCake}
+            style={{ position: 'relative', left: '5px' }}
           >
             <i class="arrow down"></i>
-          </button>
+          </span>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </td>
         <td>{cake.price * cake.quantity}</td>
