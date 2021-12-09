@@ -9,7 +9,7 @@ export default function Cake(props) {
     navigate(`/cake/${props.cake.cakeid}`);
   };
   return (
-    <div className="col-md">
+    <div className="col-md mt-3">
       <div className="card" style={{ width: '15rem' }}>
         <img
           className="card-img-top"

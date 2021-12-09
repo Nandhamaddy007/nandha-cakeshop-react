@@ -43,12 +43,12 @@ export function CartReducer(state = { cartitems: [] }, action) {
       state['isLoading'] = false;
       return state;
     }
-    // case 'ADDTOCART': {
-    //   state = {
-    //     cartitems: action.payload,
-    //   };
-    //   return state;
-    // }
+    case 'ADDTOCART': {
+      state = {
+        cartitems: action.payload,
+      };
+      return state;
+    }
     default:
       return state;
   }

@@ -47,7 +47,7 @@ function Cart(props) {
         <tbody>
           {props['cartitems']?.map((cake, index) => {
             amt = amt + cake.price * cake.quantity;
-            return <CartItem cake={cake} />;
+            return <CartItem cake={cake} index={index} />;
           })}
 
           <tr>
@@ -73,8 +73,19 @@ function Cart(props) {
         .then(
           (res) => {
             console.log(res);
+            props.toast(res.data.message, 'success');
+            cake.quantity -= 1;
+            var temp = [...props.cartitems];
+            console.log(temp);
+            temp[cakes.index] = cake;
+            console.log(temp);
+            props.dispatch({
+              type: 'ADDTOCART',
+              payload: temp,
+            });
           },
           (err) => {
+            props.toast('unable to remove, please try again later', 'error');
             console.log(err);
           }
         );
@@ -91,6 +102,7 @@ function Cart(props) {
         .then(
           (res) => {
             console.log(res);
+            props.toast(res.data.message, 'success');
             props.dispatch({
               type: 'ADDTOCART',
               payload: res.data.data,
@@ -98,6 +110,7 @@ function Cart(props) {
             console.log('hello', props['cartitems']);
           },
           (err) => {
+            props.toast('unable to remove', 'error');
             console.log(err);
           }
         );
@@ -105,17 +118,33 @@ function Cart(props) {
     function addOneCake() {
       axios
         .post(
-          'https://apifromashu.herokuapp.com/api/addonecaketocart',
-          { cakeid: cake.cakeid },
-          {
-            headers: { authToken: localStorage.token },
-          }
+          'https://apifromashu.herokuapp.com/api/' + 'addcaketocart',
+          cake,
+          { headers: { authToken: localStorage.token } }
         )
         .then(
           (res) => {
             console.log(res);
+            if (res.data.message == 'Not Authorised') {
+              props.toast(
+                res.data.message + ' Please Login and try again',
+                'error'
+              );
+            } else {
+              props.toast(res.data.message, 'success');
+              cake.quantity += 1;
+              var temp = [...props.cartitems];
+              console.log(temp);
+              temp[cakes.index] = cake;
+              console.log(temp);
+              props.dispatch({
+                type: 'ADDTOCART',
+                payload: temp,
+              });
+            }
           },
           (err) => {
+            props.toast('unable to add', 'error');
             console.log(err);
           }
         );
