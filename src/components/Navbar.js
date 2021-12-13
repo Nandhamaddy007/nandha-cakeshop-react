@@ -24,9 +24,7 @@ function Navbar(props) {
     setIsLoggedIn(false);
   };
   const [isLoggedIn, setIsLoggedIn] = useState(props.isloggedin);
-  useEffect(() => {
-    setIsLoggedIn(localStorage.token ? true : false);
-  });
+  useEffect(() => {}, []);
   return (
     <div>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
