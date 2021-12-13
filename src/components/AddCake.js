@@ -1,6 +1,27 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 export default function AddCake(props) {
+  function useQuery() {
+    const { search } = useLocation();
+
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }
+  let query = useQuery();
+  useEffect(() => {
+    console.log(query.get('cakeid'));
+    axios
+      .get('https://apifromashu.herokuapp.com/api/cake/' + query.get('cakeid'))
+      .then((res) => {
+        console.log(res.data.data);
+        // setCakeDetails(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const [imgUrl, setImgUrl] = useState({
     url: String,
     file: File,

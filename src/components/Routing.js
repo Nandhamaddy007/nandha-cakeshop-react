@@ -14,6 +14,7 @@ import Checkout from './Checkout';
 import Address from './Address';
 import Payment from './Payment';
 import Search from './Search';
+import Admin from './admin';
 import Pagenotfound from './Pagenotfound';
 
 export default function Routing() {
@@ -64,6 +65,8 @@ export default function Routing() {
             <Route path="address" element={<Address />} />
             <Route path="payment" element={<Payment />} />
           </Route>
+          <Route path="admin" element={<Admin />}></Route>
+          <Route path="admin/EditCake" element={<AddCake />} />
           <Route path="*" element={<Pagenotfound />} />
         </Routes>
       </BrowserRouter>
